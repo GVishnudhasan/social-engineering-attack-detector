@@ -1,0 +1,48 @@
+<header class="reporting-form">
+    <h1>Reporting Form</h1>
+    <p>Use this form to report suspicious activity on social media.</p>
+</header>
+
+<div class="reporting-form">
+    <form [formGroup]="reportingForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="socialMediaPlatform">Social media platform:</label>
+            <select id="socialMediaPlatform" formControlName="socialMediaPlatform" class="form-control" required>
+                <option disabled value="">Select a social media platform</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Twitter">Twitter</option>
+                <option value="Instagram">Instagram</option>
+                <option value="LinkedIn">LinkedIn</option>
+            </select>
+            <br>
+            <br>
+            <div class="form-group">
+                <label for="id">Enter Your Profile URL:</label>
+                <input type="text" id="id" formControlName="id" class="form-control" required>
+                <div class="invalid-feedback"
+                    *ngIf="reportingForm.controls['id'].invalid && (reportingForm.controls['id'].dirty || reportingForm.controls['id'].touched)">
+                    <div *ngIf="reportingForm.controls['id'].errors.required">id is required.</div>
+                </div>
+            </div>
+            <div class="invalid-feedback"
+                *ngIf="reportingForm.controls['socialMediaPlatform'].invalid && (reportingForm.controls['socialMediaPlatform'].dirty || reportingForm.controls['socialMediaPlatform'].touched)">
+                <div *ngIf="reportingForm.controls['socialMediaPlatform'].errors.required">Social media platform is
+                    required.</div>
+            </div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label for="comments">Comments:</label>
+            <textarea id="comments" formControlName="comments" class="form-control" rows="5"></textarea>
+        </div> -->
+        <div *ngIf="suspiciousIds">
+            <h3>Suspicious IDs:</h3>
+            <ul>
+              <li *ngFor="let id of suspiciousIds">{{ id }}</li>
+            </ul>
+          </div>
+          
+
+        <button type="submit" class="btn btn-primary" [disabled]="!reportingForm.valid">Check !</button>
+    </form>
+</div>
