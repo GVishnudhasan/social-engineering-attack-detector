@@ -78,7 +78,7 @@ def send_email():
     smtp_server = "smtp.gmail.com"
     sender_email = "ksrietcse2021@gmail.com"
     receiver_email = "gvishnud10@gmail.com"
-    password = "eznscahkroajykpn"
+    password = "Supersecretpassword"
     message = """\
     Subject: Unusual activity detected
 
@@ -90,8 +90,9 @@ def send_email():
         server.starttls(context=context)
         server.ehlo()  # Can be omitted
         server.login(sender_email, password)
-        
+        print("Sending email notification...")
         server.sendmail(sender_email, receiver_email, message)
+        print("Email sent")
 
 test_data = "your pic is nice bro"
 analyze_data(test_data)
