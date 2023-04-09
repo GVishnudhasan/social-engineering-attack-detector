@@ -171,12 +171,14 @@ def crawlandreport(username, smedia):
 def crawlandreport_from_url(url):
     doms=url.split('/')
     try:
+        print(doms)
         smedia=doms[2]
-        usernmame=doms[3]
+        username=doms[3]
         dot=smedia.split('.')
-        smedia=smedia[1] if len(dot)==3 else smedia[0]
+        print(dot)
+        smedia=dot[1] if len(dot)==3 else dot[0]
     
     except IndexError:
         raise IOError("URL is not valid")
-
-    return crawlandreport(usernmame, smedia)
+    print(username, smedia)
+    return crawlandreport(username, smedia)
