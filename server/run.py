@@ -6,6 +6,7 @@ from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 import smtplib
 import ssl
+import crawler
 
 SENDGRID_API_KEY = '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'
 
@@ -29,15 +30,9 @@ def report():
 
 
 def analyze_url(url):
-    # TODO: Implement URL analysis code here
-    suspicious_ids = ["vishnu", "id1", "id2", "id3"]
-    # print("Sending email notification...")
-    # message = "The following suspicious IDs were found: {}".format(suspicious_ids)
-    # send_email(message)
-    # Return the suspicious IDs
-    return suspicious_ids
+    return crawler.crawlandreport_byurl(url)
 
-
+''' I copied this funtion in crawler
 def analyze_data(data):
     url = "https://sead.cognitiveservices.azure.com/language/:analyze-conversations?api-version=2022-10-01-preview"
 
@@ -69,7 +64,7 @@ def analyze_data(data):
     answer = response.json()
     # print(answer)
     print(answer['result']['prediction']['topIntent'])
-
+'''
 
 def send_email():
     port = 587  # For starttls
