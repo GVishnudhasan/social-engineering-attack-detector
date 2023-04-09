@@ -30,7 +30,7 @@ def report():
 
 
 def analyze_url(url):
-    return crawler.crawlandreport_byurl(url)
+    return crawler.crawlandreport_from_url(url)
 
 ''' I copied this funtion in crawler
 def analyze_data(data):
