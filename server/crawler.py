@@ -119,6 +119,7 @@ def crawlandreport(username, smedia):
     identitytheft=[]
     pretexting=[]
     suspicious_ids=set()
+    suspicious_links=set()
     
     for post in crawler.postlist:
         category=post.category
@@ -126,6 +127,8 @@ def crawlandreport(username, smedia):
             continue
         if post.mentions:
             suspicious_ids.update(post.mentions)
+        if post.links:
+            suspicious_links.update(post.links)
         if category == 'spam':
             spam.append(post.caption)
         elif category == 'scam':
@@ -140,9 +143,11 @@ def crawlandreport(username, smedia):
             phishing.append(post.caption)
 
     report=''
-
+    
     if suspicious_ids:
         report+="Suspicious user profiles :\n\t" + '\n\t'.join(suspicious_ids) + '\n'
+    if suspicious_links:
+        report+="These links are appears to be malicious :\n\t" + '\n\t'.join(suspicious_links) + '\n'
     if spam:
         report+="\nSpam detected:\n\t" + '\n\t'.join(spam) + '\n'
     if scam:
@@ -162,3 +167,16 @@ def crawlandreport(username, smedia):
         summary='This profile contains suspicious activities relevent to be ' + ('spam' if spam else '') + ('phishing' if phishing else '') + ('scam' if scam else '') + ('baiting' if baiting else '') + ('identity-theft' if identitytheft else '') + ('pre-texting' if pretexting else '')
         report=summary + '\n' + report
     return report
+
+def crawlandreport_from_url(url):
+    doms=url.split('/')
+    try:
+        smedia=doms[2]
+        usernmame=doms[3]
+        dot=smedia.split('.')
+        smedia=smedia[1] if len(dot)==3 else smedia[0]
+    
+    except IndexError:
+        raise IOError("URL is not valid")
+
+    return crawlandreport(usernmame, smedia)
